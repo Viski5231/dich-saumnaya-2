@@ -22,3 +22,20 @@
           </li>
         </ul>
         <button @click="removeCard(card.id)">Удалить</button>
+        <p v-if="card.completedDate">Завершено: {{ card.completedDate }}</p>
+        <div>
+          <label for="tags">Добавить метки:</label>
+          <input type="text" v-model="card.tag" placeholder="Введите метку" @keyup.enter="addTag(card)" />
+          <ul>
+            <li v-for="(tag, tagIndex) in card.tags" :key="tagIndex">{{ tag }}</li>
+          </ul>
+        </div>
+      </div>
+      <button v-if="canAddCard(column)" @click="addCard(index)">Добавить карточку</button>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
