@@ -44,3 +44,14 @@ button {
     border-radius: 5px; /* Закругленные углы кнопки */
     cursor: pointer; /* Указываем, что кнопка кликабельная */
 }
+button:hover {
+    background-color: #0056b3; /* Цвет фона кнопки при наведении */
+}
+
+input[type="checkbox"] {
+    margin-right: 5px; /* Отступ справа для чекбокса */
+}
+
+input[type="color"] {
+    margin-left: 10px; /* Отступ слева для выбора цвета */
+}
