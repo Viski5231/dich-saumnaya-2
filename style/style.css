@@ -9,3 +9,38 @@ body {
     display: flex; /* Используем Flexbox для горизонтального расположения столбцов */
     justify-content: space-between; /* Распределяем пространство между столбцами */
 }
+column {
+    width: 30%; /* Ширина каждого столбца */
+    margin: 10px; /* Отступы между столбцами */
+    padding: 10px;
+    background-color: #fff; /* Цвет фона столбца */
+    border: 1px solid #ccc; /* Граница столбца */
+    border-radius: 5px; /* Закругленные углы */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Тень для столбца */
+}
+
+.card {
+    margin-bottom: 10px; /* Отступ между карточками */
+    padding: 10px;
+    border: 1px solid #aaa; /* Граница карточки */
+    border-radius: 5px; /* Закругленные углы карточки */
+    background-color: #f9f9f9; /* Цвет фона карточки */
+}
+
+h2 {
+    text-align: center; /* Центрируем заголовок столбца */
+}
+
+h3 {
+    margin: 0; /* Убираем отступы у заголовка карточки */
+}
+
+button {
+    margin-top: 10px; /* Отступ сверху для кнопок */
+    padding: 5px 10px; /* Отступы внутри кнопок */
+    background-color: #007bff; /* Цвет фона кнопки */
+    color: white; /* Цвет текста кнопки */
+    border: none; /* Убираем границу */
+    border-radius: 5px; /* Закругленные углы кнопки */
+    cursor: pointer; /* Указываем, что кнопка кликабельная */
+}
