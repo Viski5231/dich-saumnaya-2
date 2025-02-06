@@ -46,3 +46,23 @@ new Vue({
             this.columns[columnIndex].cards.push(newCard);
             this.saveCards();
         },
+        removeCard(cardId) {
+            for (let column of this.columns) {
+                const index = column.cards.findIndex(card => card.id === cardId);
+                if (index !== -1) {
+                    column.cards.splice(index, 1);
+                    this.saveCards();
+                    break;
+                }
+            }
+        },
+        updateCard(card) {
+            const completedItems = card.items.filter(item => item.completed).length;
+            const totalItems = card.items.length;
+
+            if (totalItems > 0) {
+                const completionRate = completedItems / totalItems;
+
+                if (completionRate > 0.5 && this.columns[0].cards.includes(card)) {
+                    this.moveCard(card, 1); // Перемещение во второй столбец
+                } else if (completionRate === 1 && this.columns[1].cards.includes(card)) {
