@@ -33,14 +33,12 @@ new Vue({
             const newCard = {
                 id: this.nextCardId++,
                 title: `Карточка ${this.nextCardId}`,
-                color: '#f9f9f9', // Цвет по умолчанию
                 items: [
                     { text: 'Пункт 1', completed: false },
                     { text: 'Пункт 2', completed: false },
                     { text: 'Пункт 3', completed: false }
                 ],
-                completedDate: null,
-                label: '' // Временное поле для ввода метки
+                completedDate: null
             };
             this.columns[columnIndex].cards.push(newCard);
             this.saveCards();
@@ -63,10 +61,10 @@ new Vue({
                 const completionRate = completedItems / totalItems;
 
                 if (completionRate > 0.5 && this.columns[0].cards.includes(card)) {
-                    this.moveCard(card, 1); // Перемещение во второй столбец
+                    this.moveCard(card, 1); // Move to column 2
                 } else if (completionRate === 1 && this.columns[1].cards.includes(card)) {
-                    this.moveCard(card, 2); // Перемещение в третий столбец
-                    card.completedDate = new Date().toLocaleString(); // Установка даты завершения
+                    this.moveCard(card, 2); // Move to column 3
+                    card.completedDate = new Date().toLocaleString(); // Set completion date
                 }
             }
             this.saveCards();
@@ -75,17 +73,10 @@ new Vue({
             for (let column of this.columns) {
                 const index = column.cards.findIndex(c => c.id === card.id);
                 if (index !== -1) {
-                    column.cards.splice(index, 1); // Удаление из текущего столбца
-                    this.columns[targetColumnIndex].cards.push(card); // Добавление в целевой столбец
+                    column.cards.splice(index, 1); // Remove from current column
+                    this.columns[targetColumnIndex].cards.push(card); // Add to target column
                     break;
                 }
-            }
-        },
-        addLabel(card) {
-            if (card.label.trim() !== '') {
-                // Здесь можно добавить логику для работы с метками, если нужно
-                card.label = ''; // Очистка поля ввода метки
-                this.saveCards();
             }
         }
     }

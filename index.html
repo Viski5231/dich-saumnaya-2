@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Заметки</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
 <div id="app">
@@ -14,7 +14,7 @@
       <div class="card" v-for="(card, cardIndex) in column.cards" :key="card.id" :style="{ backgroundColor: card.color }">
         <input type="text" v-model="card.title" placeholder="Заголовок карточки" />
         <label>Цвет:</label>
-        <input type="text" v-model="card.color" placeholder="Введите цвет в формате HEX" />
+        <input type="color" v-model="card.color" />
         <ul>
           <li v-for="(item, itemIndex) in card.items" :key="itemIndex">
             <input type="checkbox" v-model="item.completed" @change="updateCard(card)">
@@ -23,17 +23,12 @@
         </ul>
         <button @click="removeCard(card.id)">Удалить</button>
         <p v-if="card.completedDate">Завершено: {{ card.completedDate }}</p>
-        <div>
-          <label>Добавить метку:</label>
-          <input type="text" v-model="card.label" placeholder="Введите метку" @keyup.enter="addLabel(card)" />
-          <p v-if="card.label">{{ card.label }}</p>
-        </div>
       </div>
       <button v-if="canAddCard(column)" @click="addCard(index)">Добавить карточку</button>
     </div>
   </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-<script src="script.js"></script>
+<script src="js/vue.min.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
