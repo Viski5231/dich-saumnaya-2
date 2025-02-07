@@ -129,11 +129,11 @@ Vue.component('note-app', {
         // Метод для перемещения карточки между колонками
         moveCard(card, targetColumnIndex) {
             for (let column of this.columns) {
-                const index = column.cards.findIndex(c => c.id === card.id); // Находим индекс карточки
+                const index = column.cards.findIndex(c => c.id === card.id); // Находим индекс карточки.
                 if (index !== -1) {
                     column.cards.splice(index, 1); // Удаляем карточку из текущей колонки
                     this.columns[targetColumnIndex].cards.push(card); // Добавляем карточку в целевую колонку
-                    break; // Выходим из цикла после перемещения
+                    break; // Выходим из цикла после перемещения.
                 }
             }
         }

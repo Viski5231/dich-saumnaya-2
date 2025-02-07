@@ -43,7 +43,7 @@ button {
     color: white; /* Цвет текста кнопки */
     border: none; /* Убираем границу */
     border-radius: 5px; /* Закругленные углы кнопки */
-    cursor: pointer; /* Указываем, что кнопка кликабельная */
+    cursor: pointer; /* Указываем, что кнопка кликабельная. */
 }
 
 button:hover {
