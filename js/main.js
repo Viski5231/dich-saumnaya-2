@@ -11,16 +11,35 @@ Vue.component('note-card', {
                     <input type="text" v-model="item.text" placeholder="Пункт списка" />
                 </li>
             </ul>
+            <input type="text" v-model="newItemText" placeholder="Новый пункт списка" />
+            <button @click="addItem" :disabled="itemCount >= 5">Добавить пункт</button>
             <button @click="removeCard(card.id)">Удалить</button>
             <p v-if="card.completedDate">Завершено: {{ card.completedDate }}</p>
         </div>
     `,
+    data() {
+        return {
+            newItemText: '', // Переменная для хранения текста нового пункта
+        };
+    },
+    computed: {
+        itemCount() {
+            return this.card.items.length; // Количество пунктов в карточке
+        }
+    },
     methods: {
         removeCard(cardId) {
             this.$emit('remove-card', cardId);
         },
         updateCard() {
             this.$emit('update-card', this.card);
+        },
+        addItem() {
+            if (this.newItemText.trim() !== '' && this.itemCount < 5) {
+                this.card.items.push({ text: this.newItemText, completed: false }); // Добавляем новый пункт
+                this.newItemText = ''; // Очищаем поле ввода
+                this.updateCard(); // Обновляем карточку
+            }
         }
     }
 });
@@ -82,8 +101,7 @@ Vue.component('note-app', {
                 items: [
                     { text: 'Пункт 1', completed: false },
                     { text: 'Пункт 2', completed: false },
-                    { text: 'Пункт 3', completed: false },
-                    { text: 'Пункт 4', completed: false } // Четвертый пункт
+                    { text: 'Пункт 3', completed: false }
                 ],
                 completedDate: null // Дата завершения по умолчанию
             };
