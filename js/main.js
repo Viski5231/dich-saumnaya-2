@@ -2,18 +2,27 @@ Vue.component('note-card', {
     props: ['card'],
     template: `
         <div class="card" :style="{ backgroundColor: card.color }">
-            <input type="text" v-model="card.title" placeholder="Заголовок карточки" />
-            <label for="colorInput">Цвет:</label>
-            <input type="color" v-model="card.color" />
+        <div class="cardHead">
+            <input type="text" v-model="card.title" placeholder="Заголовок карточки" :style="{ color: card.titleColor }" />
+            <label for="titleColorInput"></label>
+            <input type="color" v-model="card.titleColor" @input="updateCard" />
+        </div>
             <ul>
                 <li v-for="(item, itemIndex) in card.items" :key="itemIndex">
-                    <input type="checkbox" v-model="item.completed" @change="updateCard">
-                    <input type="text" v-model="item.text" placeholder="Пункт списка" />
+                    <input type="checkbox" v-model="item.completed" @change="updateCard" class="custom-checkbox" />
+                    <input type="text" v-model="item.text" placeholder="Пункт списка" :style="{ color: item.textColor }" />
+                    <input type="color" v-model="item.textColor" @input="updateCard" />
                 </li>
             </ul>
-            <input type="text" v-model="newItemText" placeholder="Новый пункт списка" />
-            <button @click="addItem" :disabled="itemCount >= 5">Добавить пункт</button>
-            <button @click="removeCard(card.id)">Удалить</button>
+            <div class="nevCard">
+                <input type="text" v-model="newItemText" placeholder="Новый пункт списка" />
+                <button @click="addItem" :disabled="itemCount >= 5">+</button>
+            </div>
+            <div class="color-controls">
+                <button @click="removeCard(card.id)">Удалить карточку</button>
+                <label for="colorInput"></label>
+                <input type="color" v-model="card.color" />
+            </div>
             <p v-if="card.completedDate">Завершено: {{ card.completedDate }}</p>
         </div>
     `,
@@ -36,7 +45,7 @@ Vue.component('note-card', {
         },
         addItem() {
             if (this.newItemText.trim() !== '' && this.itemCount < 5) {
-                this.card.items.push({ text: this.newItemText, completed: false }); // Добавляем новый пункт
+                this.card.items.push({ text: this.newItemText, completed: false, textColor: '#000000' }); // Добавляем новый пункт с цветом текста по умолчанию
                 this.newItemText = ''; // Очищаем поле ввода
                 this.updateCard(); // Обновляем карточку
             }
@@ -97,11 +106,12 @@ Vue.component('note-app', {
             const newCard = {
                 id: this.nextCardId++, // Увеличиваем ID для новой карточки
                 title: `Карточка ${this.nextCardId}`, // Заголовок карточки
-                color: '#f9f9f9', // Цвет по умолчанию
+                titleColor: '#000000', // Цвет заголовка по умолчанию
+                color: '#f9f9f9', // Цвет ф она по умолчанию
                 items: [
-                    { text: 'Пункт 1', completed: false },
-                    { text: 'Пункт 2', completed: false },
-                    { text: 'Пункт 3', completed: false }
+                    { text: 'Пункт 1', completed: false, textColor: '#000000' },
+                    { text: 'Пункт 2', completed: false, textColor: '#000000' },
+                    { text: 'Пункт 3', completed: false, textColor: '#000000' }
                 ],
                 completedDate: null // Дата завершения по умолчанию
             };
